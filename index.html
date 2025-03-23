@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be Mine? 💖</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+        
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+            transition: background-color 0.5s ease;
+        }
+        .proposal-container {
+            background: white;
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            border: 2px solid #ff69b4;
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        h1 {
+            color: #ff69b4;
+        }
+        .proposal-text {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .cute-button {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
+        }
+        .cute-button:hover {
+            background-color: #ff1493;
+            transform: scale(1.1);
+            box-shadow: 0 0 15px #ff1493, 0 0 25px #ff1493;
+        }
+        .hidden-text {
+            display: none;
+            font-size: 20px;
+            color: #ff69b4;
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+        .emoji {
+            font-size: 40px;
+            transition: transform 0.5s ease;
+            display: block;
+            margin: 10px auto;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+        .rain, .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: none;
+        }
+        .rain div, .hearts div {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0.8;
+            animation: fall 1.5s linear infinite;
+        }
+        @keyframes fall {
+            from { transform: translateY(-10vh); }
+            to { transform: translateY(100vh); }
+        }
+    </style>
+    <script>
+        function showMessage(response) {
+            let textYes = document.getElementById('amazing-text');
+            let textNo = document.getElementById('really-text');
+            let emoji = document.getElementById('emoji');
+            let body = document.body;
+            let container = document.querySelector('.proposal-container');
+            let rain = document.querySelector('.rain');
+            let hearts = document.querySelector('.hearts');
+            
+            if (response === 'yes') {
+                textYes.style.display = 'block';
+                textYes.style.opacity = '1';
+                textNo.style.display = 'none';
+                emoji.innerText = '😍';
+                emoji.style.transform = 'scale(1.2)';
+                body.style.backgroundColor = '#ffe6f2'; // Light pink for love effect
+                rain.style.display = 'none';
+                hearts.style.display = 'block';
+                generateHearts();
+            } else {
+                textNo.style.display = 'block';
+                textNo.style.opacity = '1';
+                textYes.style.display = 'none';
+                emoji.innerText = '😞';
+                emoji.style.transform = 'scale(0.9)';
+                body.style.backgroundColor = '#2c2c2c'; // Darker background for sad effect
+                container.style.animation = 'shake 0.5s';
+                setTimeout(() => { container.style.animation = ''; }, 500);
+                rain.style.display = 'block';
+                hearts.style.display = 'none';
+                generateRain();
+            }
+        }
+        function generateRain() {
+            let rainContainer = document.querySelector('.rain');
+            rainContainer.innerHTML = '';
+            for (let i = 0; i < 10; i++) {
+                let emoji = document.createElement('div');
+                emoji.innerText = '😞';
+                emoji.style.left = Math.random() * 100 + 'vw';
+                emoji.style.animationDuration = (Math.random() * 1 + 1) + 's';
+                rainContainer.appendChild(emoji);
+            }
+        }
+        function generateHearts() {
+            let heartsContainer = document.querySelector('.hearts');
+            heartsContainer.innerHTML = '';
+            for (let i = 0; i < 10; i++) {
+                let heart = document.createElement('div');
+                heart.innerText = '💖';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 1 + 1) + 's';
+                heartsContainer.appendChild(heart);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="rain"></div>
+    <div class="hearts"></div>
+    <div class="proposal-container">
+        <header>
+            <h1>💖 Me & You, forever? 💖</h1>
+        </header>
+        <main>
+            <p class="proposal-text">One word: Yes? 💕</p>
+            <span id="emoji" class="emoji">😊</span>
+            <p id="amazing-text" class="hidden-text">I knew you'd say yes! 💕✨</p>
+            <p id="really-text" class="hidden-text">That's okay, I appreciate you no matter what! </p>
+        </main>
+        <footer>
+            <button class="cute-button" onclick="showMessage('yes')">Yes</button>
+            <button class="cute-button" onclick="showMessage('no')">No</button>
+        </footer>
+    </div>
+</body>
+</html>
